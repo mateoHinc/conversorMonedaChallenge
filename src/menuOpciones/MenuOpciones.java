@@ -1,14 +1,19 @@
 package menuOpciones;
 
+import Archivo.GenerarJSON;
 import apis.ConsultarMoneda;
+import modelos.TasaCambio;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class MenuOpciones {
-    public void opciones(int opcion) {
+    public void opciones(int opcion) throws IOException {
 
         ConsultarMoneda consulta = new ConsultarMoneda();
+        GenerarJSON generar = new GenerarJSON();
+
         switch (opcion) {
             case 1:
 
@@ -20,6 +25,8 @@ public class MenuOpciones {
                     double tasaDolar_A_Arg = consulta.obtenerTasaCambio("USD", "ARS");
                     double resultadoDolar_A_Arg = consulta.convertir(valorDolar_A_Arg, tasaDolar_A_Arg);
                     System.out.println("El resultado de la conversión es: " + resultadoDolar_A_Arg);
+                    TasaCambio tasaCambio = consulta.buscarTasa("USD");
+                    generar.agregarTasa(tasaCambio);
                 } catch (NumberFormatException e) {
                     System.out.println("Error: Valor no válido.");
                 }
@@ -35,6 +42,8 @@ public class MenuOpciones {
                     double tasaArg_A_Dolar = consulta.obtenerTasaCambio("ARS", "USD");
                     double resultadoArg_A_Dolar = consulta.convertir(valorArg_A_Dolar, tasaArg_A_Dolar);
                     System.out.println("El resultado de la conversión es: " + resultadoArg_A_Dolar);
+                    TasaCambio tasaCambio = consulta.buscarTasa("ARS");
+                    generar.agregarTasa(tasaCambio);
                 } catch (NumberFormatException e) {
                     System.out.println("Error: Valor no válido.");
                 }
@@ -50,6 +59,8 @@ public class MenuOpciones {
                     double tasaDolar_A_Real = consulta.obtenerTasaCambio("USD", "BRL");
                     double resultadoDolar_A_Real = consulta.convertir(valorDolar_A_Real, tasaDolar_A_Real);
                     System.out.println("El resultado de la conversión es: " + resultadoDolar_A_Real);
+                    TasaCambio tasaCambio = consulta.buscarTasa("USD");
+                    generar.agregarTasa(tasaCambio);
                 } catch (NumberFormatException e) {
                     System.out.println("Error: Valor no válido.");
                 }
@@ -65,6 +76,8 @@ public class MenuOpciones {
                     double tasaReal_A_Dolar = consulta.obtenerTasaCambio("BRL", "USD");
                     double resultadoReal_A_Dolar = consulta.convertir(valorReal_A_Dolar, tasaReal_A_Dolar);
                     System.out.println("El resultado de la conversión es: " + resultadoReal_A_Dolar);
+                    TasaCambio tasaCambio = consulta.buscarTasa("BRL");
+                    generar.agregarTasa(tasaCambio);
                 } catch (NumberFormatException e) {
                     System.out.println("Error: Valor no válido.");
                 }
@@ -80,6 +93,8 @@ public class MenuOpciones {
                     double tasaDolar_A_Cop = consulta.obtenerTasaCambio("USD", "COP");
                     double resultadoDolar_A_Cop = consulta.convertir(valorDolar_A_Cop, tasaDolar_A_Cop);
                     System.out.println("El resultado de la conversión es: " + resultadoDolar_A_Cop);
+                    TasaCambio tasaCambio = consulta.buscarTasa("USD");
+                    generar.agregarTasa(tasaCambio);
                 } catch (NumberFormatException e) {
                     System.out.println("Error: Valor no válido.");
                 }
@@ -95,11 +110,14 @@ public class MenuOpciones {
                     double tasaCop_A_Dolar = consulta.obtenerTasaCambio("COP", "USD");
                     double resultadoCop_A_Dolar = consulta.convertir(valorCop_A_Dolar, tasaCop_A_Dolar);
                     System.out.println("El resultado de la conversión es: " + resultadoCop_A_Dolar);
+                    TasaCambio tasaCambio = consulta.buscarTasa("COP");
+                    generar.agregarTasa(tasaCambio);
                 } catch (NumberFormatException e) {
                     System.out.println("Error: Valor no válido.");
                 }
 
                 break;
         }
+        generar.crearArchivoJSON();
     }
 }

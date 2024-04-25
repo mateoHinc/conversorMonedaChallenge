@@ -1,15 +1,19 @@
 package principal;
 
+import Archivo.GenerarJSON;
 import menuOpciones.MenuOpciones;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Principal {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
 
         int opcion = 0;
 
+        GenerarJSON generar = new GenerarJSON();
+        MenuOpciones menu = new MenuOpciones();
 
         System.out.println("******************************");
         System.out.println("\n¡Bienvenido al Conversor de Monedas!");
@@ -43,6 +47,8 @@ public class Principal {
             } catch (Exception e) {
                 System.out.println("Error: "+e.getMessage());
             }
+
         }
+        sc.close();
     }
 }
